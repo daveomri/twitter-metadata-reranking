@@ -1,0 +1,49 @@
+1) (vlastní téma) Metadata reranking Twitter
+
+Pro vlastní projekt jsem si vybral sociální síť Twitter, 
+která nabízí velice uživatelsky přívětivé API. Mezi hlavní 
+důvody výběru této sítě je obliba a snaha více poznat její 
+API, nad kterým chci v budoucnosti vytvořit další soukromé
+projekty.
+
+Co API nabízí?
+
+Toto API má bohaté možnosti jak s ním vynaložit. Lze získávat
+tweety, společně se všemi jejich meta-daty a informacemi 
+o autorech. Hledání tweetů podle hashtagů či jiných kritérií 
+není problém a právě toto bych ve svém semestrálním projektu 
+využil. V druhé části nabízí i automatizované akce, jakožto 
+posílání tweetů, komentování příspěvků, sdílení a další interakci
+ s tweety. Tuto část bych však v projektu nevyužil.
+
+Cíl semestrálního projektu
+
+Podobně jako nám byl na cvičení představen projekt metadata 
+rerankingu nad Flickerem, tak v tomato bych se zaměřil na 
+sociální síť Twitter. V první části se pomocí API získá soubor 
+tweetů z kategorie definované uživatelem (nejnovější, dle 
+hashtagu, lokalizace) a následně dle uživatelem zadaných kritérií
+naleznou nejlepší tweety. Podobnost bude závislá na podobnosti 
+metadat zadaných uživatelem a jejich hladiny významnosti (vah). 
+Například budeme chtít naleznou tweet, který bude obsahovat určité 
+fráze, bude pod určitou kombinací hashtagů, z určité země, 
+publikován v určitý čas a třeba uživatelem, který má účet starší 
+než jeden rok.
+
+Možné komplikace
+
+Po studování Twitter API jsem narazil na několik drobných problémů. 
+Ty spočívající v omezení časového horizontu a počtu stáhnutelných tweetů. 
+Tento limit je dán typem účtu, které je možné si vytvořit. Během 
+15 minut je možný pouze omezený počet požadavků a v rámci jednoho 
+měsíce taktéž omezený počet stáhnutelných tweetů. Tento limit je 
+na 500,000 tweetů/měsíc. Problém lze omezit například cachováním tweetů 
+během vývoje, ale chtěl jsem tento problém zde poznamenat.
+
+Aktuální stav projektu
+
+V rámci projektu jsem si zatím předběžně založil nový Twitter 
+účet a podal žádost na získání vývojářského účtu. Tato žádost 
+byla úspěšná a již nyní mám potřebné klíče pro komunikaci 
+s Twitter API.
+
