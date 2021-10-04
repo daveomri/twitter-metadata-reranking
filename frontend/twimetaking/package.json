@@ -1,6 +1,7 @@
 {
   "name": "twimetaking",
   "version": "0.1.0",
+  "proxy": "http://twit_backend:5000",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",

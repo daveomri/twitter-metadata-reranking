@@ -1,8 +1,8 @@
 # get the image
-FROM NODE:14-slim
+FROM node:current-buster-slim
 
 # set working directory
-WORKDIR /usr/src/app
+WORKDIR /user/src/app
 
 # copy content
 COPY ./package.json ./
