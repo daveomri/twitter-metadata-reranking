@@ -1,14 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const TestPage = ({data}) => {
-    if (!data) return <div />;
-    
-    return(
-        <div>
-            <h1>{data.name}</h1>
-            <h1>{data.rtl}</h1>
-        </div>
-    );
-}
+const TestPage = (props) => {
+  const { data } = props;
+
+  if (!data) return <div />;
+
+  return (
+    <div>
+      <h1>{data.name}</h1>
+      <h1>{data.rtl}</h1>
+    </div>
+  );
+};
+
+TestPage.propTypes = {
+  data: PropTypes.objectOf(PropTypes.object()).isRequired,
+};
 
 export default TestPage;
