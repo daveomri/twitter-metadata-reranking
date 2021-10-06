@@ -15,7 +15,7 @@ const TestPage = (props) => {
 };
 
 TestPage.propTypes = {
-  data: PropTypes.objectOf(PropTypes.object()).isRequired,
+  data: PropTypes.string.isRequired,
 };
 
 export default TestPage;
