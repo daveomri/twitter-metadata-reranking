@@ -1,22 +1,54 @@
-import React, { useState, useEffect } from 'react';
+/* eslint-disable no-unused-vars */
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
-import { Button } from '@material-ui/core';
-import './App.css';
+import { withStyles } from '@material-ui/core/styles';
 
-import TestPage from './components/TestPage';
+import { Grid } from '@material-ui/core';
 
-function App() {
-  const [initialState, setState] = useState([]);
+import SearchForm from './components/SearchForm';
+import Results from './components/Results';
 
-  useEffect(() => {
-    fetch('/api').then((response) => response.json().then((data) => {
-      setState(data);
-    }));
-  }, []);
+const styles = (theme) => ({
+  root: {
+    backgroundColor: 'red',
+  },
+});
+
+function App(props) {
+  const [state, setState] = useState(null);
+  const { classes } = props;
+
+  // useEffect(() => {
+  //   fetch('/api').then((response) => response.json().then((data) => {
+  //     setState(data);
+  //   }));
+  // }, []);
+
+  const handleSubmit = () => {};
 
   return (
-    <div className="App">
-      <TestPage data={initialState} />
+    <div className={classes.root}>
+      <Grid
+        container
+        justifyContent="center"
+        direction="column"
+        alignItems="center"
+      >
+        <Grid item xs={6}>
+          <SearchForm onSubmit={handleSubmit} />
+        </Grid>
+        <Grid item xs={6}>
+          {
+            state && (<Results data={state} />)
+          }
+        </Grid>
+      </Grid>
+    </div>
+  );
+}
+
+/**
       <Button
         onClick={async () => {
           const newData = {
@@ -41,8 +73,10 @@ function App() {
       >
         submit
       </Button>
-    </div>
-  );
-}
+ */
 
-export default App;
+App.propTypes = {
+  classes: PropTypes.objectOf(PropTypes.any).isRequired,
+};
+
+export default withStyles(styles)(App);
