@@ -32,16 +32,16 @@ const defaultValues = {
   date: '',
   dateWeight: 0,
 
-  likes: 0,
+  likes: '',
   likesWeight: 0,
 
-  retweets: 0,
+  retweets: '',
   retweetsWeight: 0,
 
-  comments: 0,
+  comments: '',
   commentsWeight: 0,
 
-  length: 0,
+  length: '',
   lengthWeight: 0,
 
   contains: '',
