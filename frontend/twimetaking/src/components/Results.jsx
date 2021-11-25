@@ -17,7 +17,7 @@ const Results = (props) => {
   const { data } = props;
   return (
     <Paper>
-      {'this is somewhere where will the text lay'}
+      {data}
     </Paper>
   );
 };

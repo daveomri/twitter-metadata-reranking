@@ -25,7 +25,21 @@ function App(props) {
   //   }));
   // }, []);
 
-  const handleSubmit = () => {};
+  const handleSubmit = (data) => {
+    console.log(data);
+
+    fetch('/add', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    }).then((ddata) => {
+      fetch('/api').then((r) => r.json().then((dddata) => {
+        setState(dddata);
+      }));
+    });
+  };
 
   return (
     <div className={classes.root}>

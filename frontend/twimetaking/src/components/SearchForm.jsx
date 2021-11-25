@@ -61,9 +61,15 @@ const SearchForm = (props) => {
     });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // call parent
+    onSubmit(formValues);
+  };
+
   return (
     <Paper className={classes.paper}>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={handleSubmit}>
         <Grid container justifyContent="center" alignItems="center" spacing={2}>
           <Grid item xs={10}>
             <h4>Search by</h4>
