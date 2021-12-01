@@ -9,7 +9,6 @@ import PropTypes, { number } from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
 import {
-  Paper,
   TextField,
   Button,
   Grid,
@@ -19,12 +18,15 @@ const styles = (theme) => ({
   paper: {
     width: '100%',
     backgroundColor: 'pink',
+    padding: '0',
+    margin: '0',
   },
 });
 
 const defaultValues = {
   hashtags: '',
   people: '',
+  resPerQuer: 10,
 
   time: '',
   timeWeight: 0,
@@ -68,7 +70,7 @@ const SearchForm = (props) => {
   };
 
   return (
-    <Paper className={classes.paper}>
+    <div className={classes.paper}>
       <form onSubmit={handleSubmit}>
         <Grid container justifyContent="center" alignItems="center" spacing={2}>
           <Grid item xs={10}>
@@ -85,7 +87,7 @@ const SearchForm = (props) => {
               onChange={handleInputChange}
               multiline
               maxRows={4}
-              variant="filled"
+              variant="outlined"
             />
           </Grid>
           <Grid item xs={10}>
@@ -99,7 +101,21 @@ const SearchForm = (props) => {
               onChange={handleInputChange}
               multiline
               maxRows={4}
-              variant="filled"
+              variant="outlined"
+            />
+          </Grid>
+          <Grid item xs={10}>
+            <TextField
+              fullWidth
+              id="results-per-query"
+              name="results"
+              label="Results per query"
+              type="number"
+              value={formValues.resPerQuer}
+              onChange={handleInputChange}
+              InputLabelProps={{ shrink: true }}
+              InputProps={{ inputProps: { min: 0 } }}
+              variant="outlined"
             />
           </Grid>
           <Grid item xs={10}><h4>Custom search</h4></Grid>
@@ -168,7 +184,7 @@ const SearchForm = (props) => {
               InputProps={{ inputProps: { min: 0 } }}
               value={formValues.likes}
               onChange={handleInputChange}
-              variant="filled"
+              variant="outlined"
             />
           </Grid>
           <Grid item xs={2}>
@@ -195,7 +211,7 @@ const SearchForm = (props) => {
               InputProps={{ inputProps: { min: 0 } }}
               value={formValues.retweets}
               onChange={handleInputChange}
-              variant="filled"
+              variant="outlined"
             />
           </Grid>
           <Grid item xs={2}>
@@ -222,7 +238,7 @@ const SearchForm = (props) => {
               InputProps={{ inputProps: { min: 0 } }}
               value={formValues.comments}
               onChange={handleInputChange}
-              variant="filled"
+              variant="outlined"
             />
           </Grid>
           <Grid item xs={2}>
@@ -249,7 +265,7 @@ const SearchForm = (props) => {
               InputProps={{ inputProps: { min: 0 } }}
               value={formValues.length}
               onChange={handleInputChange}
-              variant="filled"
+              variant="outlined"
             />
           </Grid>
           <Grid item xs={2}>
@@ -277,7 +293,7 @@ const SearchForm = (props) => {
               onChange={handleInputChange}
               multiline
               maxRows={4}
-              variant="filled"
+              variant="outlined"
             />
           </Grid>
           <Grid item xs={6}>
@@ -287,7 +303,7 @@ const SearchForm = (props) => {
           </Grid>
         </Grid>
       </form>
-    </Paper>
+    </div>
   );
 };
 

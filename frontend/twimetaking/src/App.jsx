@@ -8,10 +8,14 @@ import { Grid } from '@material-ui/core';
 
 import SearchForm from './components/SearchForm';
 import Results from './components/Results';
+import Footer from './components/Footer';
 
 const styles = (theme) => ({
   root: {
     backgroundColor: 'red',
+    minHeight: '100vh',
+    height: '100%',
+    paddingBottom: theme.spacing(2),
   },
 });
 
@@ -42,14 +46,15 @@ function App(props) {
   };
 
   return (
-    <div className={classes.root}>
+    <div>
       <Grid
         container
         justifyContent="center"
         direction="column"
         alignItems="center"
+        className={classes.root}
       >
-        <Grid item xs={6}>
+        <Grid item md={6} sm={8} xs={12}>
           <SearchForm onSubmit={handleSubmit} />
         </Grid>
         <Grid item xs={6}>
@@ -58,6 +63,7 @@ function App(props) {
           }
         </Grid>
       </Grid>
+      <Footer />
     </div>
   );
 }
