@@ -12,7 +12,7 @@ import Footer from './components/Footer';
 
 const styles = (theme) => ({
   root: {
-    backgroundColor: 'red',
+    backgroundColor: '#fafafa',
     minHeight: '100vh',
     height: '100%',
     paddingBottom: theme.spacing(2),

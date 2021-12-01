@@ -7,10 +7,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     paddingLeft: theme.spacing(3),
     paddingRight: theme.spacing(3),
-    backgroundColor: '#CDC9C3',
   },
   footer: {
-    backgroundColor: '#555555',
+    backgroundColor: 'lightgray',
     minHeight: theme.spacing(4),
     [theme.breakpoints.down('xs')]: {
       paddingTop: theme.spacing(1),
@@ -18,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
   copyright: {
     alignItems: 'center',
-    color: '#CDC9C3',
+    color: '#000',
     [theme.breakpoints.up('xs')]: {
       justifyContent: 'flex-start',
     },

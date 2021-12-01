@@ -17,7 +17,7 @@ import {
 const styles = (theme) => ({
   paper: {
     width: '100%',
-    backgroundColor: 'pink',
+    backgroundColor: '#fafaff',
     padding: '0',
     margin: '0',
   },
@@ -108,13 +108,13 @@ const SearchForm = (props) => {
             <TextField
               fullWidth
               id="results-per-query"
-              name="results"
+              name="resPerQuer"
               label="Results per query"
               type="number"
               value={formValues.resPerQuer}
               onChange={handleInputChange}
               InputLabelProps={{ shrink: true }}
-              InputProps={{ inputProps: { min: 0 } }}
+              InputProps={{ inputProps: { min: 0, max: 100 } }}
               variant="outlined"
             />
           </Grid>
@@ -297,7 +297,11 @@ const SearchForm = (props) => {
             />
           </Grid>
           <Grid item xs={6}>
-            <Button fullWidth variant="contained" color="primary" type="submit">
+            <Button
+              fullWidth
+              variant="outlined"
+              type="submit"
+            >
               Submit
             </Button>
           </Grid>
