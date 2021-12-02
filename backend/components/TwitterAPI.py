@@ -8,13 +8,13 @@ import re
 
 class TwitterAPI:
   def __init__(self):
-    consumer_key = "4LtdhzlJFkEsM2bi7kPK07cOy"
-    consumer_secret = "WvFNG27x9YxUOGZeDw06KQzEq0FCgFNVKUePI1fTkBtYd0i7Z7"
+    consumer_key = "nQHdkncNyjRquTNRFmrOS5pMf"
+    consumer_secret = "ABUE8Fks33NOl96nDLyfkSmgFCLBd4SpoJVsqFDYcbVo9W0242"
 
-    access_token = "1442488131198935044-2ES0kXYrxybXq1orYkjXYloj6yyBKk"
-    access_token_secret = "So6ctn0EwsNDI82moBgdR1jjy6NyuBfghDplG3DnwvHt2"
+    access_token = "1442488131198935044-D8suMVcMCPQNXBM1ZaHOydzDjDHXkW"
+    access_token_secret = "XYkNlYBn946bbMpG3mVDZezsoOGydXXvovjFZGv6TFrOE"
 
-    bearer_token = "AAAAAAAAAAAAAAAAAAAAAP97UAEAAAAAdK0W4py8i%2B9yvp7yOw3%2BQNd%2BQlA%3D4W7cCIjtuvKVNS9KO6eGtQAWZZKpGxoACAjiCe9SxbiDUWg2Uw"
+    bearer_token = "AAAAAAAAAAAAAAAAAAAAAP97UAEAAAAAuaYT%2BHme9Dkhn40UgBpVVgEN72k%3Dlg8tqrhLUgxj1Uiic9MFs2mNhWnSmRLiCh1uICAqKoLobJqXQa"
 
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
@@ -35,9 +35,7 @@ class TwitterAPI:
       'user_followers_count', 
       'user_friends_count', 
       'user_profile_image_url_https', 
-      'user_profile_banner_url', 
-      'user_profile_background_image_url_https', 
-      'possibly_sensitive'
+      'user_profile_background_image_url_https',
     ]
 
     self.api = tweepy.API(auth)
@@ -54,27 +52,38 @@ class TwitterAPI:
     
 
   def get_tweets_by_usernames(self, usernames, length):
+    tweets = pd.DataFrame(columns=self.tweet_features)
+
     for username in usernames:
       try:
-        """this"""
-      except:
+        for tweet in tweepy.Cursor(
+            test_api.api.user_timeline,
+            id=username,
+          ).items(length):
+          extracted_tweet = self.get_extracted_features(tweet)
+          print(extracted_tweet)
+          tweets = tweets.append(extracted_tweet, ignore_index=True)
+      except Exception as e:
+        print("Oh no! {}".format(e.args))
         print("Something went wrong with {}".format(username))
         continue
+    
+    return tweets
 
 
-  def get_tweets_by_hashtags(self, hashtags, length, lang='en'):
+  def get_tweets_by_hashtags(self, hashtags, length):
     tweets = pd.DataFrame(columns=self.tweet_features)
 
     for hashtag in hashtags:
       try:
         for tweet in tweepy.Cursor(
-            test_api.api.search_tweets, 
-            q='#{} lang:{}'.format(hashtag, lang)
+            test_api.api.search_tweets,
+            q='{} exclude:retweets exclude:replies'.format(hashtag)
           ).items(length):
           extracted_tweet = self.get_extracted_features(tweet)
           tweets = tweets.append(extracted_tweet, ignore_index=True)
       except Exception as e:
-        print("Oh no! {}".format(e.__class__))
+        print("Oh no! {}".format(e.args))
         print("Something went wrong with {}".format(hashtag))
         continue
 
@@ -92,6 +101,7 @@ class TwitterAPI:
           if sub_feature[:-1] in tweet._json:
             print(feature[len(sub_feature):])
             result[feature] = tweet._json[sub_feature[:-1]][feature[len(sub_feature):]]
+    print(result)
     return result
 
 test_api = TwitterAPI()
@@ -103,7 +113,7 @@ test_api = TwitterAPI()
 # for tweet in tweepy.Cursor(test_api.api.search_tweets, q='daveomri').items(10):
 #     print(tweet.text)
 
-print(test_api.api.verify_credentials().screen_name)
+#print(test_api.api.verify_credentials().screen_name)
 # test_api.api.update_status("Hello world!")
 
 
@@ -112,7 +122,15 @@ print(test_api.api.verify_credentials().screen_name)
 # tweets = test_api.api.user_timeline(screen_name="DaveOmri", count=1, exclude_replies = True, include_replies=False, include_rts=False, tweet_mode='extended')
 # print(tweets)
 
-tweets = test_api.get_tweets_by_hashtags(["#death"], 1)
-
-print(tweets.shape)
-
+tweets = test_api.get_tweets_by_usernames(["DaveOmri"], 10)
+print(tweets)
+tweets = test_api.get_tweets_by_hashtags(["dad"], 10)
+print(tweets)
+# count = 0
+# for tweet in test_api.api.search_tweets(q="#dad", count=22):
+#   count+=1
+#   print(count)
+# count = 0
+# for tweet in tweepy.Cursor(test_api.api.search_tweets, q="iphone exclude:retweets exclude:replies").items(6):
+#   count+=1
+#   print(tweet.source)
