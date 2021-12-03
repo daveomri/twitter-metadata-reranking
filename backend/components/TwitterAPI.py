@@ -34,8 +34,7 @@ class TwitterAPI:
       'user_verified', 
       'user_followers_count', 
       'user_friends_count', 
-      'user_profile_image_url_https', 
-      'user_profile_background_image_url_https',
+      'user_profile_image_url_https',
     ]
 
     self.api = tweepy.API(auth)
@@ -57,11 +56,10 @@ class TwitterAPI:
     for username in usernames:
       try:
         for tweet in tweepy.Cursor(
-            test_api.api.user_timeline,
+            self.api.user_timeline,
             id=username,
           ).items(length):
           extracted_tweet = self.get_extracted_features(tweet)
-          print(extracted_tweet)
           tweets = tweets.append(extracted_tweet, ignore_index=True)
       except Exception as e:
         print("Oh no! {}".format(e.args))
@@ -77,7 +75,7 @@ class TwitterAPI:
     for hashtag in hashtags:
       try:
         for tweet in tweepy.Cursor(
-            test_api.api.search_tweets,
+            self.api.search_tweets,
             q='{} exclude:retweets exclude:replies'.format(hashtag)
           ).items(length):
           extracted_tweet = self.get_extracted_features(tweet)
@@ -99,38 +97,5 @@ class TwitterAPI:
         for i in range(1, len(feature.split("_"))):
           sub_feature += re.search("([^_]*(_)){"+str(i)+"}", feature).group(1)
           if sub_feature[:-1] in tweet._json:
-            print(feature[len(sub_feature):])
             result[feature] = tweet._json[sub_feature[:-1]][feature[len(sub_feature):]]
-    print(result)
     return result
-
-test_api = TwitterAPI()
-
-# print("Screen name", test_api.user.screen_name)
-# print("folowers count", test_api.user.followers_count)
-# print("friends count:", len(test_api.user.followers()))
-
-# for tweet in tweepy.Cursor(test_api.api.search_tweets, q='daveomri').items(10):
-#     print(tweet.text)
-
-#print(test_api.api.verify_credentials().screen_name)
-# test_api.api.update_status("Hello world!")
-
-
-#tweets = test_api.client.get_users_tweets(id=[], max_results=5, exclude=["replies", "retweets"])
-
-# tweets = test_api.api.user_timeline(screen_name="DaveOmri", count=1, exclude_replies = True, include_replies=False, include_rts=False, tweet_mode='extended')
-# print(tweets)
-
-tweets = test_api.get_tweets_by_usernames(["DaveOmri"], 10)
-print(tweets)
-tweets = test_api.get_tweets_by_hashtags(["dad"], 10)
-print(tweets)
-# count = 0
-# for tweet in test_api.api.search_tweets(q="#dad", count=22):
-#   count+=1
-#   print(count)
-# count = 0
-# for tweet in tweepy.Cursor(test_api.api.search_tweets, q="iphone exclude:retweets exclude:replies").items(6):
-#   count+=1
-#   print(tweet.source)
