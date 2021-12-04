@@ -13,8 +13,14 @@ class Tweets:
         usernames_tweets = self.twiapi.get_tweets_by_usernames(usernames, length)
         hashtags_tweets = self.twiapi.get_tweets_by_hashtags(hashtags, length)
 
-        self._tweets = pd.concat([usernames_tweets, hashtags_tweets])
+        self._tweets = pd.concat([usernames_tweets, hashtags_tweets], ignore_index=True)
 
 
     def sort_tweets(self, sort_params):
         """todo"""
+
+tweets = Tweets()
+
+tweets.fetch_tweets(['death'], ['DaveOmri'], 2)
+
+print(tweets._tweets.id)
