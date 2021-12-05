@@ -5,6 +5,12 @@ from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 from datetime import datetime
 
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+os.environ["WANDB_API_KEY"] = "0"
+os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+
+
 def get_text_cosine_similarity(original_text, compared_text):
   model_name = 'bert-base-nli-mean-tokens'
   # Create model
@@ -46,8 +52,8 @@ def get_time_similarity(f_time, s_time):
     ]) / 2
 
 def get_number_similarity(f_num, s_num):
-  f_num = abs(f_num)
-  s_num = abs(s_num)
+  f_num = float(abs(f_num))
+  s_num = float(abs(s_num))
   if f_num == 0 and s_num == 0:
     return 1
-  return min(f_num, s_num)/max(f_num, s_num)
+  return float(min(f_num, s_num)+1.)/(max(f_num, s_num)+1.)

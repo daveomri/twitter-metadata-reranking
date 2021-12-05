@@ -20,20 +20,20 @@ class TwitterAPI:
     auth.set_access_token(access_token, access_token_secret)
 
     self.tweet_features = [
-      'id', 
-      'text', 
-      'created_at', 
-      'retweet_count', 
-      'favorite_count', 
-      'lang', 
+      'id',
+      'text',
+      'created_at',
+      'retweet_count',
+      'favorite_count',
+      'lang',
       'source',
-      'user_name', 
-      'user_screen_name', 
-      'user_location', 
-      'user_url', 
-      'user_verified', 
-      'user_followers_count', 
-      'user_friends_count', 
+      'user_name',
+      'user_screen_name',
+      'user_location',
+      'user_url',
+      'user_verified',
+      'user_followers_count',
+      'user_friends_count',
       'user_profile_image_url_https',
     ]
 

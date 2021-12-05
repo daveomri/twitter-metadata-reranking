@@ -40,9 +40,6 @@ const defaultValues = {
   retweets: '',
   retweetsWeight: 0,
 
-  comments: '',
-  commentsWeight: 0,
-
   length: '',
   lengthWeight: 0,
 
@@ -221,33 +218,6 @@ const SearchForm = (props) => {
               type="number"
               name="retweetsWeight"
               value={formValues.retweetsWeight}
-              onChange={handleInputChange}
-              InputLabelProps={{ shrink: true }}
-              InputProps={{ inputProps: { min: 0 } }}
-              variant="outlined"
-            />
-          </Grid>
-
-          <Grid item xs={8}>
-            <TextField
-              fullWidth
-              id="comments-num"
-              name="comments"
-              label="Comments"
-              type="number"
-              InputProps={{ inputProps: { min: 0 } }}
-              value={formValues.comments}
-              onChange={handleInputChange}
-              variant="outlined"
-            />
-          </Grid>
-          <Grid item xs={2}>
-            <TextField
-              fullWidth
-              label="Weight"
-              type="number"
-              name="commentsWeight"
-              value={formValues.commentsWeight}
               onChange={handleInputChange}
               InputLabelProps={{ shrink: true }}
               InputProps={{ inputProps: { min: 0 } }}
