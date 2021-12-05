@@ -1,6 +1,7 @@
 # Requirements without Version Specifiers
 flask-cors
 tweepy
+sentence-transformers
 
 # Requirements with Version Specifiers
 FLASK == 1.1.2
