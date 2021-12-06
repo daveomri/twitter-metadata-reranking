@@ -68,7 +68,10 @@ def get_text_words_similarity(original_text, compared_text):
   denom = math.sqrt(
     count_dot_product(comp_freq, comp_freq) * count_dot_product(orig_freq, orig_freq))
   
-  return 1 - (math.acos(numer / denom)/(2 * math.pi))
+  if (numer == 0):
+    return 0.0
+
+  return 1 - (math.acos(numer / denom)/(math.pi))
 
 
 
