@@ -2,36 +2,30 @@
 
 from Tweets import Tweets
 
+params_vals = {
+  'contains': 'react programming blessing',
+  'length': 12,
+  'date': '12/03/2020',
+  'time': '21:30',
+  'likes': 1,
+  'retweets': 0
+}
+
 tweets = Tweets()
 
-tweets.fetch_tweets([], ['eliska_cechova'], 3)
+tweets.fetch_tweets(['react'], ['DaveOmri'], 2)
 
-# Test date
-tweets.count_date_similarity('28/05/1999')
+tweets.count_feature_similarities(params_vals)
 
-print(tweets._tweets.date_sim)
+params_weights = {
+  'lengthWeight': 2,
+  'likesWeight': 1,
+  'retweetsWeight': 2,
+  'dateWeight': 2,
+  'timeWeight': 1
+}
 
-# Test time
-tweets.count_time_similarity('23:35')
+tweets.sort_tweets(params_weights)
 
-print(tweets._tweets.time_sim)
-
-# Test text
-tweets.count_text_similarity("Nice kisses are best.")
-
-print(tweets._tweets.text_sim)
-
-# Test text size
-tweets.count_text_len_similarity(1)
-
-print(tweets._tweets.text_len_sim)
-
-# Test retweets num
-tweets.count_retweets_similairty(2)
-
-print(tweets._tweets.ret_sim)
-
-# Test fav num
-tweets.count_favorite_similarity(1)
-
-print(tweets._tweets.fav_sim)
+print(tweets._tweets.total_sim)
+print(tweets._tweets.text)

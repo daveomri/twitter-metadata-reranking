@@ -143,32 +143,4 @@ class Tweets:
         (self._tweets.time_sim * params_weights["timeWeight"]))/weights_sum
     
     # sort tweets
-    self._tweets = self._tweets.sort_values(by=["total_sim"])
-
-params_vals = {
-  'contains': 'kisses kiss blessing',
-  'length': 12,
-  'date': '12/03/2020',
-  'time': '21:30',
-  'likes': 1,
-  'retweets': 0
-}
-
-tweets = Tweets()
-
-tweets.fetch_tweets([], ['eliska_cechova', 'DaveOmri'], 2)
-
-tweets.count_feature_similarities(params_vals)
-
-params_weights = {
-  'lengthWeight': 0,
-  'likesWeight': 0,
-  'retweetsWeight': 0,
-  'dateWeight': 0,
-  'timeWeight': 0
-}
-
-tweets.sort_tweets(params_weights)
-
-print(tweets._tweets.total_sim)
-print(tweets._tweets.text)
+    self._tweets = self._tweets.sort_values(by=["total_sim"], ascending=False)

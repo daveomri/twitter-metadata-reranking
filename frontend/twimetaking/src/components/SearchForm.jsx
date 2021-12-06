@@ -12,6 +12,11 @@ import {
   TextField,
   Button,
   Grid,
+  RadioGroup,
+  Radio,
+  FormControlLabel,
+  FormControl,
+  FormLabel,
 } from '@material-ui/core';
 
 const styles = (theme) => ({
@@ -44,6 +49,7 @@ const defaultValues = {
   lengthWeight: 0,
 
   contains: '',
+  similarity: 'words',
 };
 
 const SearchForm = (props) => {
@@ -279,6 +285,22 @@ const SearchForm = (props) => {
               maxRows={4}
               variant="outlined"
             />
+          </Grid>
+          <Grid item xs={10}>
+            <FormControl component="fieldset">
+              <FormLabel component="legend">Similarity</FormLabel>
+              <RadioGroup
+                aria-label="text similarity"
+                defaultValue="words"
+                name="similarity"
+                id="similarity"
+                value={formValues.similarity}
+                onChange={handleInputChange}
+              >
+                <FormControlLabel value="words" control={<Radio />} label="Bag of words" />
+                <FormControlLabel value="cosine" control={<Radio />} label="Cosine similarity" />
+              </RadioGroup>
+            </FormControl>
           </Grid>
           <Grid item xs={6}>
             <Button
