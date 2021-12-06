@@ -30,8 +30,6 @@ function App(props) {
   // }, []);
 
   const handleSubmit = (data) => {
-    console.log(data);
-
     fetch('/add', {
       method: 'POST',
       headers: {

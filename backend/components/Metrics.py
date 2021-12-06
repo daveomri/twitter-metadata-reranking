@@ -1,17 +1,19 @@
 # David Omrai 4.12.2021
 
 import numpy as np
-from sentence_transformers import SentenceTransformer
-from sklearn.metrics.pairwise import cosine_similarity
 from datetime import datetime
-
-import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-os.environ["WANDB_API_KEY"] = "0"
-os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+import re
+import math
 
 
 def get_text_cosine_similarity(original_text, compared_text):
+  from sentence_transformers import SentenceTransformer
+  from sklearn.metrics.pairwise import cosine_similarity
+  import os
+  os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+  os.environ["WANDB_API_KEY"] = "0"
+  os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+
   model_name = 'bert-base-nli-mean-tokens'
   # Create model
   model = SentenceTransformer(model_name)
@@ -30,6 +32,44 @@ def get_text_cosine_similarity(original_text, compared_text):
     )
 
   return np.mean(similarities)
+
+def count_words_frequency(words):
+  words_freq = {}
+
+  for word in words:
+    if word in words_freq:
+      words_freq[word] += 1
+    else:
+      words_freq[word] = 1
+  
+  return words_freq
+
+def count_dot_product(f_words, s_words):
+  dod = 0.0
+
+  for key in f_words:
+    if key in s_words:
+      dod += (f_words[key] * s_words[key])
+
+  return dod
+
+def get_text_words_similarity(original_text, compared_text):
+  # Get words
+  orig_words = re.sub("[^0-9a-zA-Z']+", ' ', original_text.lower()).rstrip().split(' ')
+  comp_words = re.sub("[^0-9a-zA-Z']+", ' ', compared_text.lower()).rstrip().split(' ')
+
+  # Get words frequency
+  orig_freq = count_words_frequency(orig_words)
+  comp_freq = count_words_frequency(comp_words)
+
+  # Count the angle
+  numer = count_dot_product(comp_freq, orig_freq)
+
+  denom = math.sqrt(
+    count_dot_product(comp_freq, comp_freq) * count_dot_product(orig_freq, orig_freq))
+  
+  return 1 - (math.acos(numer / denom)/(2 * math.pi))
+
 
 
 def get_date_similarity(f_date, s_date):

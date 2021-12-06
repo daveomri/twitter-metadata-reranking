@@ -3,7 +3,7 @@
 /* eslint-disable react/no-unused-prop-types */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-curly-brace-presence */
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import PropTypes, { number } from 'prop-types';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -63,7 +63,21 @@ const SearchForm = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // call parent
-    onSubmit(formValues);
+    // Change format of date
+    let outData = { ...formValues };
+    if (outData.date !== '') {
+      const date = new Date(outData.date);
+      const fullDate = date.toLocaleDateString(
+        'en-GB',
+        {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+        },
+      );
+      outData = { ...outData, date: fullDate };
+    }
+    onSubmit(outData);
   };
 
   return (
@@ -282,7 +296,6 @@ const SearchForm = (props) => {
 };
 
 SearchForm.propTypes = {
-  data: PropTypes.string.isRequired,
   classes: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 

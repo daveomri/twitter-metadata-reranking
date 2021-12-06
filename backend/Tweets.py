@@ -29,18 +29,29 @@ class Tweets:
   
 
   #---------------------------------------------------------
-  def count_text_similarity(self, text):
-    self._tweets['text_sim'] = self._tweets['text']   
-    separators = '\. |\.|\? |\?|\n|!'
-    comp_lines = re.split(separators, text)
+  def count_text_similarity(self, text, sim_f='words'):
+    self._tweets['text_sim'] = self._tweets['text']
 
-    self._tweets.text_sim = self._tweets.text_sim.apply(
-      lambda twt_text:
-        metr.get_text_cosine_similarity(
-          re.split(separators, twt_text),
-          comp_lines
-        )
-    )
+    if (sim_f == 'cosine'):
+      separators = '\. |\.|\? |\?|\n|!'
+      comp_lines = re.split(separators, text)
+
+      self._tweets.text_sim = self._tweets.text_sim.apply(
+        lambda twt_text:
+          metr.get_text_cosine_similarity(
+            re.split(separators, twt_text),
+            comp_lines
+          )
+      )
+    
+    if (sim_f == 'words'):
+      self._tweets.text_sim = self._tweets.text_sim.apply(
+        lambda twt_text:
+          metr.get_text_words_similarity(
+            twt_text,
+            text
+          )
+      )
   
   def count_text_len_similarity(self, text_len):
     self._tweets['text_len_sim'] = self._tweets['text']
@@ -99,23 +110,65 @@ class Tweets:
   
   def count_feature_similarities(self, params_values):
     # Count text similarity
-    self.count_text_similarity(params_values.countains)
+    self.count_text_similarity(params_values["contains"])
 
     # Count text length similarity
-    self.count_text_len_similarity(params_values.length)
+    self.count_text_len_similarity(params_values["length"])
 
     # Count date similarity
-    self.count_date_similarity(params_values.date)
+    self.count_date_similarity(params_values["date"])
 
     # Count time similarity
-    self.count_time_similarity(params_values.time)
+    self.count_time_similarity(params_values["time"])
 
     # Count likes similarity
-    self.count_favorite_similarity(params_values.likes)
+    self.count_favorite_similarity(params_values["likes"])
 
     # Count retweets similarity
-    self.count_retweets_similairty(params_values)
+    self.count_retweets_similairty(params_values["retweets"])
 
 
   def sort_tweets(self, params_weights):
-    """todo"""
+    # count weights
+    weights_sum = sum(params_weights.values())
+    if weights_sum == 0:
+      weights_sum = 1
+    # sum similarities
+    self._tweets['total_sim'] = (
+        (self._tweets.text_sim) +
+        (self._tweets.text_len_sim * params_weights["lengthWeight"]) + 
+        (self._tweets.fav_sim * params_weights["likesWeight"]) + 
+        (self._tweets.ret_sim * params_weights["retweetsWeight"]) + 
+        (self._tweets.date_sim * params_weights["dateWeight"]) + 
+        (self._tweets.time_sim * params_weights["timeWeight"]))/weights_sum
+    
+    # sort tweets
+    self._tweets = self._tweets.sort_values(by=["total_sim"])
+
+params_vals = {
+  'contains': 'kisses kiss blessing',
+  'length': 12,
+  'date': '12/03/2020',
+  'time': '21:30',
+  'likes': 1,
+  'retweets': 0
+}
+
+tweets = Tweets()
+
+tweets.fetch_tweets([], ['eliska_cechova', 'DaveOmri'], 2)
+
+tweets.count_feature_similarities(params_vals)
+
+params_weights = {
+  'lengthWeight': 0,
+  'likesWeight': 0,
+  'retweetsWeight': 0,
+  'dateWeight': 0,
+  'timeWeight': 0
+}
+
+tweets.sort_tweets(params_weights)
+
+print(tweets._tweets.total_sim)
+print(tweets._tweets.text)
