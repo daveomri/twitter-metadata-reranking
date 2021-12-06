@@ -84,7 +84,7 @@ class Tweets:
           twt_favs,
           likes_num
         )
-    )
+    ) 
   
   def count_retweets_similairty(self, retweets_num):
     self._tweets['ret_sim'] = self._tweets['retweet_count']
@@ -97,42 +97,25 @@ class Tweets:
         )
     )
   
-  def count_feature_similarities(self, params_weights):
+  def count_feature_similarities(self, params_values):
+    # Count text similarity
+    self.count_text_similarity(params_values.countains)
+
+    # Count text length similarity
+    self.count_text_len_similarity(params_values.length)
+
+    # Count date similarity
+    self.count_date_similarity(params_values.date)
+
+    # Count time similarity
+    self.count_time_similarity(params_values.time)
+
+    # Count likes similarity
+    self.count_favorite_similarity(params_values.likes)
+
+    # Count retweets similarity
+    self.count_retweets_similairty(params_values)
+
+
+  def sort_tweets(self, params_weights):
     """todo"""
-
-  def sort_tweets(self, sort_params):
-    """todo"""
-
-tweets = Tweets()
-
-tweets.fetch_tweets([], ['eliska_cechova'], 3)
-
-# Test date
-tweets.count_date_similarity('28/05/1999')
-
-print(tweets._tweets.date_sim)
-
-# Test time
-tweets.count_time_similarity('23:35')
-
-print(tweets._tweets.time_sim)
-
-# Test text
-#tweets.count_text_similarity("Nice kisses are best.")
-
-#print(tweets._tweets.text_sim)
-
-# Test text size
-tweets.count_text_len_similarity(1)
-
-print(tweets._tweets.text_len_sim)
-
-# Test retweets num
-tweets.count_retweets_similairty(2)
-
-print(tweets._tweets.ret_sim)
-
-# Test fav num
-tweets.count_favorite_similarity(1)
-
-print(tweets._tweets.fav_sim)
