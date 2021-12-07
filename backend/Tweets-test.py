@@ -8,7 +8,8 @@ params_vals = {
   'date': '12/03/2020',
   'time': '21:30',
   'likes': 1,
-  'retweets': 0
+  'retweets': 0,
+  'similarity': 'words'
 }
 
 tweets = Tweets()

@@ -31,19 +31,20 @@ def search_tweets():
   
   # Get tweets
   tweets = Tweets()
-  tweets.fetch_tweets(data["hashtags"], data["people"], data["resPerQuer"])
+ 
+  tweets.fetch_tweets(data["hashtags"].split(), data["people"].split(), int(data["resPerQuer"]))
 
-  # Count similarities
-  tweets.count_feature_similarities(data)
+  # # Count similarities
+  # tweets.count_feature_similarities(data)
 
-  # Count weighted similarities
-  tweets.count_weighted_similarities(feature_weights)
+  # # Count weighted similarities
+  # tweets.count_weighted_similarities(feature_weights)
 
-  # Sort total similarities
-  tweets.sort_tweets()
+  # # Sort total similarities
+  # tweets.sort_tweets()
 
   # Turn the tweets into json
-  data = tweets._tweets.to_json()
+  data = tweets.tweets_to_json()
 
   return data
 
