@@ -14,7 +14,7 @@ params_vals = {
 
 tweets = Tweets()
 
-tweets.fetch_tweets(['react'], ['DaveOmri'], 2)
+tweets.fetch_tweets([], ['DaveOmri'], 1)
 
 tweets.count_feature_similarities(params_vals)
 
@@ -33,4 +33,4 @@ tweets.sort_tweets()
 data = tweets.tweets_to_dict()
 
 for tweet in data:
-  print(tweet["text"])
+  print(tweet["user_url"])
