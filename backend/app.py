@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify, send_from_directory
+import tweepy
 
 from Tweets import Tweets
 
@@ -21,8 +22,7 @@ def search_tweets():
   global data
   data = request.get_json()
    
-   # Search the tweets
-
+   # Get weights
   feature_weights = {
     'timeWeight': data["timeWeight"],
     'dateWeight': data["dateWeight"],
@@ -30,10 +30,20 @@ def search_tweets():
     'retweetsWeight': data["retweetsWeight"],
     'lengthWeight': data["lengthWeight"],
   }
+  
+  # Get tweets
+  tweets = Tweets()
+  tweets.fetch_tweets(data["hashtags"], data["people"], data["resPerQuer"])
 
-  data = feature_weights
+  # Count similarities
+  tweets.count_feature_similarities(data)
 
-  print(feature_weights)
+  # Count weighted similarities
+  tweets.count_weighted_similarities(feature_weights)
+
+  # Sort total similarities
+  tweets.sort_tweets()
+
   return data
 
 

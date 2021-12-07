@@ -25,7 +25,9 @@ params_weights = {
   'timeWeight': 1
 }
 
-tweets.sort_tweets(params_weights)
+tweets.count_weighted_similarities(params_weights)
+
+tweets.sort_tweets()
 
 print(tweets._tweets.total_sim)
 print(tweets._tweets.text)

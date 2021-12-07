@@ -1,7 +1,7 @@
 # Requirements without Version Specifiers
 flask-cors
 tweepy
-sentence-transformers
+#sentence-transformers
 pandas
 
 # Requirements with Version Specifiers

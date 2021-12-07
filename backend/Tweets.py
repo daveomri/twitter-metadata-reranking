@@ -127,12 +127,12 @@ class Tweets:
     # Count retweets similarity
     self.count_retweets_similairty(params_values["retweets"])
 
-
-  def sort_tweets(self, params_weights):
+  def count_weighted_similarities(self, params_weights):
     # count weights
     weights_sum = sum(params_weights.values())
     if weights_sum == 0:
       weights_sum = 1
+
     # sum similarities
     self._tweets['total_sim'] = (
         (self._tweets.text_sim) +
@@ -141,6 +141,7 @@ class Tweets:
         (self._tweets.ret_sim * params_weights["retweetsWeight"]) + 
         (self._tweets.date_sim * params_weights["dateWeight"]) + 
         (self._tweets.time_sim * params_weights["timeWeight"]))/weights_sum
-    
+
+  def sort_tweets(self):    
     # sort tweets
     self._tweets = self._tweets.sort_values(by=["total_sim"], ascending=False)
