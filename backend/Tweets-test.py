@@ -29,5 +29,7 @@ tweets.count_weighted_similarities(params_weights)
 
 tweets.sort_tweets()
 
-print(tweets._tweets.total_sim)
-print(tweets._tweets.text)
+data = tweets.tweets_to_dict()
+
+for tweet in data:
+  print(tweet["text"])

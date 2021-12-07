@@ -13,18 +13,17 @@ const styles = (theme) => ({
   },
 });
 
-const Results = (props) => {
+const Tweet = (props) => {
   const { data } = props;
-  console.log(data);
   return (
     <Paper>
-      nothing
+      {data.timeWeight}
     </Paper>
   );
 };
 
-Results.propTypes = {
+Tweet.propTypes = {
   data: PropTypes.string.isRequired,
 };
 
-export default withStyles(styles)(Results);
+export default withStyles(styles)(Tweet);

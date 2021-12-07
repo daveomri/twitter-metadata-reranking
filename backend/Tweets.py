@@ -1,4 +1,5 @@
 # David Omrai 3.12.2021
+
 from datetime import datetime
 import pandas as pd
 from components.TwitterAPI import TwitterAPI
@@ -110,10 +111,13 @@ class Tweets:
   
   def count_feature_similarities(self, params_values):
     # Count text similarity
-    self.count_text_similarity(params_values["contains"])
+    self.count_text_similarity(
+      params_values["contains"],
+      sim_f=params_values["similarity"]
+    )
 
     # Count text length similarity
-    self.count_text_len_similarity(params_values["length"])
+    self.count_text_len_similarity(int(params_values["length"]))
 
     # Count date similarity
     self.count_date_similarity(params_values["date"])
@@ -122,26 +126,32 @@ class Tweets:
     self.count_time_similarity(params_values["time"])
 
     # Count likes similarity
-    self.count_favorite_similarity(params_values["likes"])
+    self.count_favorite_similarity(int(params_values["likes"]))
 
     # Count retweets similarity
-    self.count_retweets_similairty(params_values["retweets"])
+    self.count_retweets_similairty(int(params_values["retweets"]))
 
   def count_weighted_similarities(self, params_weights):
     # count weights
-    weights_sum = sum(params_weights.values())
+    weights_sum = sum([int(par) for par in params_weights.values()])
     if weights_sum == 0:
       weights_sum = 1
 
     # sum similarities
     self._tweets['total_sim'] = (
         (self._tweets.text_sim) +
-        (self._tweets.text_len_sim * params_weights["lengthWeight"]) + 
-        (self._tweets.fav_sim * params_weights["likesWeight"]) + 
-        (self._tweets.ret_sim * params_weights["retweetsWeight"]) + 
-        (self._tweets.date_sim * params_weights["dateWeight"]) + 
-        (self._tweets.time_sim * params_weights["timeWeight"]))/weights_sum
+        (self._tweets.text_len_sim * int(params_weights["lengthWeight"])) + 
+        (self._tweets.fav_sim * int(params_weights["likesWeight"])) + 
+        (self._tweets.ret_sim * int(params_weights["retweetsWeight"])) + 
+        (self._tweets.date_sim * int(params_weights["dateWeight"])) + 
+        (self._tweets.time_sim * int(params_weights["timeWeight"])))/weights_sum
 
   def sort_tweets(self):    
     # sort tweets
     self._tweets = self._tweets.sort_values(by=["total_sim"], ascending=False)
+
+  def tweets_to_json(self):
+    return self._tweets.to_json(orient="records")
+
+  def tweets_to_dict(self):
+    return self._tweets.to_dict(orient="records")
