@@ -25,6 +25,9 @@ const styles = (theme) => ({
     backgroundColor: '#fafaff',
     padding: '0',
     margin: '0',
+    borderLeft: '1px solid #c0c0c4',
+    borderRight: '1px solid #c0c0c4',
+    marginBottom: theme.spacing(1),
   },
 });
 

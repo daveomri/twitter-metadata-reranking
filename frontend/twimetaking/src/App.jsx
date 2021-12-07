@@ -9,13 +9,17 @@ import { Grid } from '@material-ui/core';
 import SearchForm from './components/SearchForm';
 import Results from './components/Results';
 import Footer from './components/Footer';
+import Tweet from './components/Tweet';
 
 const styles = (theme) => ({
   root: {
     backgroundColor: '#fafafa',
     minHeight: '100vh',
     height: '100%',
-    paddingBottom: theme.spacing(2),
+    paddingBottom: theme.spacing(1),
+  },
+  tiles: {
+    width: '100%',
   },
 });
 
@@ -46,13 +50,28 @@ function App(props) {
         alignItems="center"
         className={classes.root}
       >
-        <Grid item md={6} sm={8} xs={12}>
+        <Grid
+          item
+          md={6}
+          sm={8}
+          xs={12}
+          className={classes.tiles}
+        >
           <SearchForm onSubmit={handleSubmit} />
         </Grid>
         <Grid item xs={6}>
           {
             state && (<Results data={state} />)
           }
+        </Grid>
+        <Grid
+          item
+          md={6}
+          sm={8}
+          xs={12}
+          className={classes.tiles}
+        >
+          <Tweet data={state} />
         </Grid>
       </Grid>
       <Footer />
