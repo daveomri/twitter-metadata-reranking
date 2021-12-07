@@ -17,7 +17,7 @@ const Results = (props) => {
   const { data } = props;
   return (
     <Paper>
-      {data.contains}
+      {data.timeWeight}
     </Paper>
   );
 };

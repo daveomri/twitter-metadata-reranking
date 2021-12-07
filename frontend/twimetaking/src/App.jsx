@@ -23,12 +23,6 @@ function App(props) {
   const [state, setState] = useState(null);
   const { classes } = props;
 
-  // useEffect(() => {
-  //   fetch('/api').then((response) => response.json().then((data) => {
-  //     setState(data);
-  //   }));
-  // }, []);
-
   const handleSubmit = (data) => {
     fetch('/add', {
       method: 'POST',

@@ -2,6 +2,7 @@
 flask-cors
 tweepy
 sentence-transformers
+pandas
 
 # Requirements with Version Specifiers
 FLASK == 1.1.2
