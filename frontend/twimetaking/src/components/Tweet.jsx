@@ -68,12 +68,18 @@ const Tweet = (props) => {
       container
       justifyContent="center"
       alignItems="center"
+      spacing={1}
       className={classes.root}
     >
       <Grid item xs={12}>
         <Grid container>
           <Grid item xs={4}>
-            <img alt="profile-pic" src={tweet.user_profile_image_url_https} />
+            <a href={`https://twitter.com/adent/status/${tweet.id}`}>
+              <img
+                alt="profile-pic"
+                src={tweet.user_profile_image_url_https}
+              />
+            </a>
           </Grid>
           <Grid item xs={8}>
             <Grid container>
@@ -100,7 +106,7 @@ const Tweet = (props) => {
 
       <Grid item xs={12}>
         <Grid container>
-          <span>{`${tweet.created_at}·`}</span>
+          <span>{`${tweet.created_at} ·`}</span>
           <span
             dangerouslySetInnerHTML={{ __html: tweet.source }}
             className={classes.tweetSource}
