@@ -33,4 +33,4 @@ tweets.sort_tweets()
 data = tweets.tweets_to_dict()
 
 for tweet in data:
-  print(tweet["user_url"])
+  print(tweet["full_text"])

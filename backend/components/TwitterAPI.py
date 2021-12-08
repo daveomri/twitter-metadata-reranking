@@ -19,7 +19,7 @@ class TwitterAPI:
 
     self.tweet_features = [
       'id',
-      'text',
+      'full_text',
       'created_at',
       'retweet_count',
       'favorite_count',
@@ -56,6 +56,7 @@ class TwitterAPI:
         for tweet in tweepy.Cursor(
             self.api.user_timeline,
             id=username,
+            tweet_mode='extended'
           ).items(length):
           extracted_tweet = self.get_extracted_features(tweet)
           tweets = tweets.append(extracted_tweet, ignore_index=True)
@@ -74,7 +75,8 @@ class TwitterAPI:
       try:
         for tweet in tweepy.Cursor(
             self.api.search_tweets,
-            q='{} exclude:retweets exclude:replies'.format(hashtag)
+            q='{} exclude:retweets exclude:replies'.format(hashtag),
+            tweet_mode='extended'
           ).items(length):
           extracted_tweet = self.get_extracted_features(tweet)
           tweets = tweets.append(extracted_tweet, ignore_index=True)
@@ -97,3 +99,6 @@ class TwitterAPI:
           if sub_feature[:-1] in tweet._json:
             result[feature] = tweet._json[sub_feature[:-1]][feature[len(sub_feature):]]
     return result
+
+tweapi = TwitterAPI()
+

@@ -9,7 +9,6 @@ import { Grid } from '@material-ui/core';
 import SearchForm from './components/SearchForm';
 import Results from './components/Results';
 import Footer from './components/Footer';
-import Tweet from './components/Tweet';
 
 const styles = (theme) => ({
   root: {
@@ -21,10 +20,6 @@ const styles = (theme) => ({
   form: {
     borderLeft: '1px solid #c0c0c4',
     borderRight: '1px solid #c0c0c4',
-  },
-  tile: {
-    border: '1px solid #c0c0c4',
-    display: 'flex',
   },
 });
 
@@ -68,15 +63,6 @@ function App(props) {
           {
             state && (<Results data={state} />)
           }
-        </Grid>
-        <Grid
-          item
-          md={6}
-          sm={8}
-          xs={12}
-          className={classes.tile}
-        >
-          <Tweet data={state} />
         </Grid>
       </Grid>
       <Footer />

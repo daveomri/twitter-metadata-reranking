@@ -31,7 +31,7 @@ class Tweets:
 
   #---------------------------------------------------------
   def count_text_similarity(self, text, sim_f='words'):
-    self._tweets['text_sim'] = self._tweets['text']
+    self._tweets['text_sim'] = self._tweets['full_text']
 
     if (sim_f == 'cosine'):
       separators = '\. |\.|\? |\?|\n|!'
@@ -55,7 +55,7 @@ class Tweets:
       )
   
   def count_text_len_similarity(self, text_len):
-    self._tweets['text_len_sim'] = self._tweets['text']
+    self._tweets['text_len_sim'] = self._tweets['full_text']
 
     self._tweets.text_len_sim = self._tweets.text_len_sim.apply(
       lambda twt_text: 

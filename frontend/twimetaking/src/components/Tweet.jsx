@@ -39,28 +39,35 @@ const Tweet = (props) => {
     classes,
   } = props;
 
-  const tweet = {
-    id: '1468340055223767043',
-    text: 'my mind often hides in Goyas house',
-    created_at: '11:02 PM · Dec 7, 2021',
-    retweet_count: 0,
-    favorite_count: 1,
-    lang: 'CZ',
-    source: '<a href="https://mobile.twitter.com" rel="nofollow">Twitter Web App</a>',
-    user_name: 'DaveOmri',
-    user_screen_name: '𝛿𓁿𝜈ల',
-    user_location: 'Czech Republic',
-    user_url: 'https://t.co/cqtuLxiy1j',
-    user_verified: false,
-    user_followers_count: '908',
-    user_friends_count: '48',
-    user_profile_image_url_https: 'https://pbs.twimg.com/profile_images/1467930674422333453/PXz__NSt_normal.jpg',
-  };
+  const readTweetDate = (twtDate) => {
+    const tdate = new Date(twtDate);
 
-  const htmlDecode = (htmlStr) => {
-    const e = document.createElement('div');
-    e.innerHTML = htmlStr;
-    return e.childNodes.length === 0 ? '' : e.childNodes[0].nodeValue;
+    const [
+      day,
+      month,
+      year,
+      hour,
+      minutes,
+    ] = [
+      tdate.getDate(),
+      tdate.toLocaleString('default', { month: 'short' }),
+      tdate.getFullYear(),
+      tdate.getHours(),
+      tdate.getMinutes(),
+    ];
+    const [
+      padDay,
+      padHour,
+      padMinutes,
+      ampm,
+    ] = [
+      day.toString().padStart(2, '0'),
+      hour > 12 ? (hour - 12).toString().padStart(2, '0')
+        : hour.toString().padStart(2, '0'),
+      minutes.toString().padStart(2, '0'),
+      hour > 12 ? 'PM' : 'AM',
+    ];
+    return `${padHour}:${padMinutes} ${ampm} · ${month} ${padDay}, ${year}`;
   };
 
   return (
@@ -74,26 +81,26 @@ const Tweet = (props) => {
       <Grid item xs={12}>
         <Grid container>
           <Grid item xs={4}>
-            <a href={`https://twitter.com/adent/status/${tweet.id}`}>
+            <a href={`https://twitter.com/adent/status/${data.id}`}>
               <img
                 alt="profile-pic"
-                src={tweet.user_profile_image_url_https}
+                src={data.user_profile_image_url_https}
               />
             </a>
           </Grid>
           <Grid item xs={8}>
             <Grid container>
               <Grid item xs={6}>
-                {tweet.user_screen_name}
+                {data.user_screen_name}
               </Grid>
               <Grid item xs={6}>
-                {tweet.user_name}
+                {data.user_name}
               </Grid>
               <Grid item xs={6}>
-                {tweet.user_location}
+                {data.user_location}
               </Grid>
               <Grid item xs={6}>
-                {tweet.lang}
+                {data.lang}
               </Grid>
             </Grid>
           </Grid>
@@ -101,24 +108,24 @@ const Tweet = (props) => {
       </Grid>
 
       <Grid item xs={12}>
-        {tweet.text}
+        {data.full_text}
       </Grid>
 
       <Grid item xs={12}>
         <Grid container>
-          <span>{`${tweet.created_at} ·`}</span>
+          <span>{`${readTweetDate(data.created_at)} · `}</span>
           <span
-            dangerouslySetInnerHTML={{ __html: tweet.source }}
-            className={classes.tweetSource}
+            dangerouslySetInnerHTML={{ __html: data.source }}
+            className={classes.dataSource}
           />
         </Grid>
       </Grid>
 
       <Grid item xs={12}>
         <Grid container>
-          <span>{tweet.favorite_count}</span>
+          <span>{data.favorite_count}</span>
           <FavoriteIcon className={classes.likeIcon} />
-          <span>{tweet.retweet_count}</span>
+          <span>{data.retweet_count}</span>
           <RetweetIcon className={classes.retweetIcon} />
         </Grid>
       </Grid>
@@ -127,7 +134,7 @@ const Tweet = (props) => {
 };
 
 Tweet.propTypes = {
-  data: PropTypes.string.isRequired,
+  data: PropTypes.objectOf(PropTypes.any).isRequired,
   classes: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 

@@ -5,26 +5,38 @@ import PropTypes from 'prop-types';
 
 import { withStyles } from '@material-ui/core/styles';
 
-import { Paper } from '@material-ui/core';
+import {
+  Grid,
+} from '@material-ui/core';
+
+import Tweet from './Tweet';
 
 const styles = (theme) => ({
   root: {
     width: '100%',
   },
+  tweet: {
+    border: '1px solid #c0c0c4',
+  },
 });
 
 const Results = (props) => {
-  const { data } = props;
-  console.log(data);
+  const { data, classes } = props;
+
   return (
-    <Paper>
-      nothing
-    </Paper>
+    <Grid container>
+      {data.map((tweet) => (
+        <Grid item xs={12} className={classes.tweet} key={tweet.id}>
+          <Tweet data={tweet} />
+        </Grid>
+      ))}
+    </Grid>
   );
 };
 
 Results.propTypes = {
-  data: PropTypes.string.isRequired,
+  data: PropTypes.arrayOf(PropTypes.any).isRequired,
+  classes: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default withStyles(styles)(Results);
