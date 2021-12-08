@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-curly-brace-presence */
 import React from 'react';
@@ -7,11 +8,29 @@ import { withStyles } from '@material-ui/core/styles';
 
 import { Grid } from '@material-ui/core';
 
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import RetweetIcon from '@material-ui/icons/Sync';
+
 const styles = (theme) => ({
   root: {
     border: '1px solid #c0c0c4',
     width: '100%',
     display: 'flex',
+  },
+  likeIcon: {
+    fontSize: 'medium',
+    color: 'red',
+  },
+  retweetIcon: {
+    fontSize: 'medium',
+    color: 'green',
+  },
+  tweetSource: {
+    '& a': {
+      color: 'black',
+      textDecoration: 'none',
+    },
+    display: 'table-row',
   },
 });
 
@@ -37,6 +56,12 @@ const Tweet = (props) => {
     user_followers_count: '908',
     user_friends_count: '48',
     user_profile_image_url_https: 'https://pbs.twimg.com/profile_images/1467930674422333453/PXz__NSt_normal.jpg',
+  };
+
+  const htmlDecode = (htmlStr) => {
+    const e = document.createElement('div');
+    e.innerHTML = htmlStr;
+    return e.childNodes.length === 0 ? '' : e.childNodes[0].nodeValue;
   };
 
   return (
@@ -75,11 +100,22 @@ const Tweet = (props) => {
         </Grid>
 
         <Grid item xs={12}>
-          {`${tweet.created_at}·${tweet.source}`}
+          <Grid container>
+            <span>{`${tweet.created_at}·`}</span>
+            <span
+              dangerouslySetInnerHTML={{ __html: tweet.source }}
+              className={classes.tweetSource}
+            />
+          </Grid>
         </Grid>
 
         <Grid item xs={12}>
-          {tweet.favorite_count}
+          <Grid container>
+            <span>{tweet.favorite_count}</span>
+            <FavoriteIcon className={classes.likeIcon} />
+            <span>{tweet.retweet_count}</span>
+            <RetweetIcon className={classes.retweetIcon} />
+          </Grid>
         </Grid>
       </Grid>
     </div>
