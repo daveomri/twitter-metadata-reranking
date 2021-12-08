@@ -18,8 +18,13 @@ const styles = (theme) => ({
     height: '100%',
     paddingBottom: theme.spacing(1),
   },
-  tiles: {
-    width: '100%',
+  form: {
+    borderLeft: '1px solid #c0c0c4',
+    borderRight: '1px solid #c0c0c4',
+  },
+  tile: {
+    border: '1px solid #c0c0c4',
+    display: 'flex',
   },
 });
 
@@ -55,7 +60,7 @@ function App(props) {
           md={6}
           sm={8}
           xs={12}
-          className={classes.tiles}
+          className={classes.form}
         >
           <SearchForm onSubmit={handleSubmit} />
         </Grid>
@@ -69,7 +74,7 @@ function App(props) {
           md={6}
           sm={8}
           xs={12}
-          className={classes.tiles}
+          className={classes.tile}
         >
           <Tweet data={state} />
         </Grid>

@@ -13,9 +13,8 @@ import RetweetIcon from '@material-ui/icons/Sync';
 
 const styles = (theme) => ({
   root: {
-    border: '1px solid #c0c0c4',
     width: '100%',
-    display: 'flex',
+    padding: theme.spacing(1),
   },
   likeIcon: {
     fontSize: 'medium',
@@ -65,60 +64,59 @@ const Tweet = (props) => {
   };
 
   return (
-    <div className={classes.root}>
-      <Grid
-        container
-        justifyContent="center"
-        alignItems="center"
-      >
-        <Grid item xs={12}>
-          <Grid container>
-            <Grid item xs={4}>
-              <img alt="profile-pic" src={tweet.user_profile_image_url_https} />
-            </Grid>
-            <Grid item xs={8}>
-              <Grid container>
-                <Grid item xs={6}>
-                  {tweet.user_screen_name}
-                </Grid>
-                <Grid item xs={6}>
-                  {tweet.user_name}
-                </Grid>
-                <Grid item xs={6}>
-                  {tweet.user_location}
-                </Grid>
-                <Grid item xs={6}>
-                  {tweet.lang}
-                </Grid>
+    <Grid
+      container
+      justifyContent="center"
+      alignItems="center"
+      className={classes.root}
+    >
+      <Grid item xs={12}>
+        <Grid container>
+          <Grid item xs={4}>
+            <img alt="profile-pic" src={tweet.user_profile_image_url_https} />
+          </Grid>
+          <Grid item xs={8}>
+            <Grid container>
+              <Grid item xs={6}>
+                {tweet.user_screen_name}
+              </Grid>
+              <Grid item xs={6}>
+                {tweet.user_name}
+              </Grid>
+              <Grid item xs={6}>
+                {tweet.user_location}
+              </Grid>
+              <Grid item xs={6}>
+                {tweet.lang}
               </Grid>
             </Grid>
           </Grid>
         </Grid>
+      </Grid>
 
-        <Grid item xs={12}>
-          {tweet.text}
-        </Grid>
+      <Grid item xs={12}>
+        {tweet.text}
+      </Grid>
 
-        <Grid item xs={12}>
-          <Grid container>
-            <span>{`${tweet.created_at}·`}</span>
-            <span
-              dangerouslySetInnerHTML={{ __html: tweet.source }}
-              className={classes.tweetSource}
-            />
-          </Grid>
-        </Grid>
-
-        <Grid item xs={12}>
-          <Grid container>
-            <span>{tweet.favorite_count}</span>
-            <FavoriteIcon className={classes.likeIcon} />
-            <span>{tweet.retweet_count}</span>
-            <RetweetIcon className={classes.retweetIcon} />
-          </Grid>
+      <Grid item xs={12}>
+        <Grid container>
+          <span>{`${tweet.created_at}·`}</span>
+          <span
+            dangerouslySetInnerHTML={{ __html: tweet.source }}
+            className={classes.tweetSource}
+          />
         </Grid>
       </Grid>
-    </div>
+
+      <Grid item xs={12}>
+        <Grid container>
+          <span>{tweet.favorite_count}</span>
+          <FavoriteIcon className={classes.likeIcon} />
+          <span>{tweet.retweet_count}</span>
+          <RetweetIcon className={classes.retweetIcon} />
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };
 
