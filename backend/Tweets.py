@@ -148,7 +148,7 @@ class Tweets:
 
   def sort_tweets(self):    
     # sort tweets
-    self._tweets = self._tweets.sort_values(by=["total_sim"], ascending=False)
+    self._tweets = self._tweets.sort_values(by=["total_sim"], ascending=True)
 
   def tweets_to_json(self):
     return self._tweets.to_json(orient="records")
