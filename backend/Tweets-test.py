@@ -26,11 +26,11 @@ params_weights = {
   'timeWeight': 0
 }
 
-tweets.count_weighted_similarities(params_weights)
+tweets.count_weighted_similarities(params_weights, params_vals)
 
 tweets.sort_tweets()
 
 data = tweets.tweets_to_dict()
 
 for tweet in data:
-  print(tweet["retweet_count"])
+  print(tweet["id_str"])

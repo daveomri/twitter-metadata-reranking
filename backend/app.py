@@ -38,7 +38,7 @@ def search_tweets():
   tweets.count_feature_similarities(data)
 
   # Count weighted similarities
-  tweets.count_weighted_similarities(feature_weights)
+  tweets.count_weighted_similarities(feature_weights, data)
 
   # Sort total similarities
   tweets.sort_tweets()

@@ -20,6 +20,7 @@ const styles = (theme) => ({
   form: {
     borderLeft: '1px solid #c0c0c4',
     borderRight: '1px solid #c0c0c4',
+    borderBottom: '1px solid #c0c0c4',
   },
 });
 

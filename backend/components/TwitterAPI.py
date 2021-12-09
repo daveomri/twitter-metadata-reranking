@@ -19,6 +19,7 @@ class TwitterAPI:
 
     self.tweet_features = [
       'id',
+      'id_str',
       'full_text',
       'created_at',
       'retweet_count',

@@ -81,7 +81,7 @@ const Tweet = (props) => {
       <Grid item xs={12}>
         <Grid container>
           <Grid item xs={4}>
-            <a href={`https://twitter.com/adent/status/${data.id}`}>
+            <a href={`https://twitter.com/i/web/status/${data.id_str}`}>
               <img
                 alt="profile-pic"
                 src={data.user_profile_image_url_https}

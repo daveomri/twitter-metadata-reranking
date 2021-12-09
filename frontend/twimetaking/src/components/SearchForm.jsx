@@ -40,13 +40,13 @@ const defaultValues = {
   date: '',
   dateWeight: 0,
 
-  likes: 0,
+  likes: '',
   likesWeight: 0,
 
-  retweets: 0,
+  retweets: '',
   retweetsWeight: 0,
 
-  length: 0,
+  length: '',
   lengthWeight: 0,
 
   contains: '',
@@ -141,7 +141,6 @@ const SearchForm = (props) => {
           <Grid item xs={8}>
             <TextField
               fullWidth
-              required
               label="Tweet date"
               type="date"
               name="date"
@@ -154,7 +153,6 @@ const SearchForm = (props) => {
           <Grid item xs={2}>
             <TextField
               fullWidth
-              required
               label="Weight"
               type="number"
               name="dateWeight"
@@ -169,7 +167,6 @@ const SearchForm = (props) => {
           <Grid item xs={8}>
             <TextField
               fullWidth
-              required
               label="Tweet time"
               type="time"
               name="time"
@@ -185,7 +182,6 @@ const SearchForm = (props) => {
           <Grid item xs={2}>
             <TextField
               fullWidth
-              required
               label="Weight"
               type="number"
               name="timeWeight"
@@ -200,7 +196,6 @@ const SearchForm = (props) => {
           <Grid item xs={8}>
             <TextField
               fullWidth
-              required
               id="likes-num"
               name="likes"
               label="Likes"
@@ -214,7 +209,6 @@ const SearchForm = (props) => {
           <Grid item xs={2}>
             <TextField
               fullWidth
-              required
               label="Weight"
               type="number"
               name="likesWeight"
@@ -229,7 +223,6 @@ const SearchForm = (props) => {
           <Grid item xs={8}>
             <TextField
               fullWidth
-              required
               id="retweets-num"
               name="retweets"
               label="Retweets"
@@ -243,7 +236,6 @@ const SearchForm = (props) => {
           <Grid item xs={2}>
             <TextField
               fullWidth
-              required
               label="Weight"
               type="number"
               name="retweetsWeight"
@@ -258,7 +250,6 @@ const SearchForm = (props) => {
           <Grid item xs={8}>
             <TextField
               fullWidth
-              required
               id="Length-num"
               name="length"
               label="Tweet length"
@@ -272,7 +263,6 @@ const SearchForm = (props) => {
           <Grid item xs={2}>
             <TextField
               fullWidth
-              required
               label="Weight"
               type="number"
               name="lengthWeight"

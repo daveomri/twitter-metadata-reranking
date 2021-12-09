@@ -111,42 +111,51 @@ class Tweets:
   
   def count_feature_similarities(self, params_values):
     # Count text similarity
-    self.count_text_similarity(
-      params_values["contains"],
-      sim_f=params_values["similarity"]
-    )
+    if params_values["contains"] != '':
+      self.count_text_similarity(
+        params_values["contains"],
+        sim_f=params_values["similarity"]
+      )
 
     # Count text length similarity
-    self.count_text_len_similarity(int(params_values["length"]))
+    if params_values["length"] != '':
+      self.count_text_len_similarity(int(params_values["length"]))
 
     # Count date similarity
-    self.count_date_similarity(params_values["date"])
+    if params_values["date"] != '':
+      self.count_date_similarity(params_values["date"])
 
     # Count time similarity
-    self.count_time_similarity(params_values["time"])
+    if params_values["time"] != '':
+      self.count_time_similarity(params_values["time"])
 
     # Count likes similarity
-    self.count_favorite_similarity(int(params_values["likes"]))
+    if params_values["likes"] != '':
+      self.count_favorite_similarity(int(params_values["likes"]))
 
     # Count retweets similarity
-    self.count_retweets_similairty(int(params_values["retweets"]))
+    if params_values["retweets"] != '':
+      self.count_retweets_similairty(int(params_values["retweets"]))
 
-  def count_weighted_similarities(self, params_weights):
+  def count_weighted_similarities(self, params_weights, params_values):
     # count weights
     weights_sum = sum([int(par) for par in params_weights.values()])
     if weights_sum == 0:
       weights_sum = 1
 
-    for_deb = self.tweets_to_dict()
-
     # sum similarities
     self._tweets['total_sim'] = (
-        (self._tweets.text_sim) * 0 +
-        (self._tweets.text_len_sim * int(params_weights["lengthWeight"])) + 
-        (self._tweets.fav_sim * int(params_weights["likesWeight"])) + 
-        (self._tweets.ret_sim * int(params_weights["retweetsWeight"])) + 
-        (self._tweets.date_sim * int(params_weights["dateWeight"])) + 
-        (self._tweets.time_sim * int(params_weights["timeWeight"])))/weights_sum
+        (0 if params_values["contains"] == '' else self._tweets.text_sim) +
+        (0 if params_values["length"] == '' else 
+          self._tweets.text_len_sim * int(params_weights["lengthWeight"])) + 
+        (0 if params_values["likes"] == '' else
+          self._tweets.fav_sim * int(params_weights["likesWeight"])) + 
+        (0 if params_values["retweets"] == '' else
+          self._tweets.ret_sim * int(params_weights["retweetsWeight"])) + 
+        (0 if params_values["date"] == '' else
+          self._tweets.date_sim * int(params_weights["dateWeight"])) + 
+        (0 if params_values["time"] == '' else
+          self._tweets.time_sim * int(params_weights["timeWeight"])))/weights_sum
 
   def sort_tweets(self):    
     # sort tweets

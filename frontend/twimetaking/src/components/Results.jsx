@@ -16,7 +16,9 @@ const styles = (theme) => ({
     width: '100%',
   },
   tweet: {
-    border: '1px solid #c0c0c4',
+    borderLeft: '1px solid #c0c0c4',
+    borderRight: '1px solid #c0c0c4',
+    borderBottom: '1px solid #c0c0c4',
   },
 });
 
@@ -26,7 +28,7 @@ const Results = (props) => {
   return (
     <Grid container>
       {data.map((tweet) => (
-        <Grid item xs={12} className={classes.tweet} key={tweet.id}>
+        <Grid item xs={12} className={classes.tweet} key={tweet.id_str}>
           <Tweet data={tweet} />
         </Grid>
       ))}
