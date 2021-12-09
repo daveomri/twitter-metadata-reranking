@@ -59,7 +59,12 @@ function App(props) {
         >
           <SearchForm onSubmit={handleSubmit} />
         </Grid>
-        <Grid item xs={6}>
+        <Grid
+          item
+          md={6}
+          sm={8}
+          xs={12}
+        >
           {
             state && (<Results data={state} />)
           }

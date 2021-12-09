@@ -1,5 +1,6 @@
 # David Omrai 4.12.2021
 
+from time import struct_time
 import numpy as np
 from datetime import datetime
 import re
@@ -75,15 +76,17 @@ def get_text_words_similarity(original_text, compared_text):
 
 
 
-def get_date_similarity(f_date, s_date):
+def get_date_similarity(f_date, s_date, num_sim=False):
   f_date = datetime.strptime(f_date, "%d/%m/%Y")
   s_date = datetime.strptime(s_date, "%d/%m/%Y")
   
-  return sum([get_number_similarity(f_date.day, s_date.day),
-    get_number_similarity(f_date.month, s_date.month),
-    get_number_similarity(f_date.year, s_date.year)]
-  ) / 3
-    
+  if num_sim == True:
+    return sum([get_number_similarity(f_date.day, s_date.day),
+      get_number_similarity(f_date.month, s_date.month),
+      get_number_similarity(f_date.year, s_date.year)]
+    ) / 3
+
+  return(get_number_similarity(f_date.timestamp(), s_date.timestamp()))
 
 def get_time_similarity(f_time, s_time):
   f_time = datetime.strptime(f_time, "%H:%M")
