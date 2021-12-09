@@ -53,6 +53,7 @@ function App(props) {
       >
         <Grid
           item
+          lg={4}
           md={6}
           sm={8}
           xs={12}
@@ -62,6 +63,7 @@ function App(props) {
         </Grid>
         <Grid
           item
+          lg={4}
           md={6}
           sm={8}
           xs={12}

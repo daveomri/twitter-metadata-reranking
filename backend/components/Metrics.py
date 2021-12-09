@@ -88,15 +88,20 @@ def get_date_similarity(f_date, s_date, num_sim=False):
 
   return(get_number_similarity(f_date.timestamp(), s_date.timestamp()))
 
-def get_time_similarity(f_time, s_time):
+def get_time_similarity(f_time, s_time, num_sim=False):
   f_time = datetime.strptime(f_time, "%H:%M")
   s_time = datetime.strptime(s_time, "%H:%M")
   
-  return sum([
-    get_number_similarity(f_time.hour, s_time.hour),
-    get_number_similarity(f_time.minute, s_time.minute)
-    ]) / 2
-
+  if num_sim == True:
+    return sum([
+      get_number_similarity(f_time.hour, s_time.hour),
+      get_number_similarity(f_time.minute, s_time.minute)
+      ]) / 2
+  
+  return get_number_similarity(
+    (f_time.hour*60 + f_time.minute),
+    (s_time.hour*60 + s_time.minute)
+  )
 def get_number_similarity(f_num, s_num):
   f_num = float(abs(f_num))
   s_num = float(abs(s_num))
