@@ -3,27 +3,27 @@
 from Tweets import Tweets
 
 params_vals = {
-  'contains': 'react programming blessing',
+  'contains': '',
   'length': 12,
   'date': '12/03/2020',
   'time': '21:30',
-  'likes': 1,
-  'retweets': 0,
+  'likes': 2,
+  'retweets': 1,
   'similarity': 'words'
 }
 
 tweets = Tweets()
 
-tweets.fetch_tweets([], ['DaveOmri'], 1)
+tweets.fetch_tweets([], ['DaveOmri'], 5)
 
 tweets.count_feature_similarities(params_vals)
 
 params_weights = {
-  'lengthWeight': 2,
-  'likesWeight': 1,
+  'lengthWeight': 0,
+  'likesWeight': 0,
   'retweetsWeight': 2,
-  'dateWeight': 2,
-  'timeWeight': 1
+  'dateWeight': 0,
+  'timeWeight': 0
 }
 
 tweets.count_weighted_similarities(params_weights)
@@ -33,4 +33,4 @@ tweets.sort_tweets()
 data = tweets.tweets_to_dict()
 
 for tweet in data:
-  print(tweet["full_text"])
+  print(tweet["retweet_count"])

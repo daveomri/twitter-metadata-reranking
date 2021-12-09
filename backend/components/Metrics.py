@@ -99,4 +99,4 @@ def get_number_similarity(f_num, s_num):
   s_num = float(abs(s_num))
   if f_num == 0 and s_num == 0:
     return 1
-  return float(min(f_num, s_num)+1.)/(max(f_num, s_num)+1.)
+  return float(min(f_num, s_num))/(max(f_num, s_num))

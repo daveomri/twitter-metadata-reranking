@@ -90,7 +90,7 @@ class Tweets:
   def count_favorite_similarity(self, likes_num):
     self._tweets['fav_sim'] = self._tweets['favorite_count']
 
-    self._tweets.fav_sim = self._tweets.date_sim.apply(
+    self._tweets.fav_sim = self._tweets.fav_sim.apply(
       lambda twt_favs:
         metr.get_number_similarity(
           twt_favs,
@@ -101,7 +101,7 @@ class Tweets:
   def count_retweets_similairty(self, retweets_num):
     self._tweets['ret_sim'] = self._tweets['retweet_count']
 
-    self._tweets.ret_sim = self._tweets.date_sim.apply(
+    self._tweets.ret_sim = self._tweets.ret_sim.apply(
       lambda twt_rets:
         metr.get_number_similarity(
           twt_rets,
@@ -137,9 +137,11 @@ class Tweets:
     if weights_sum == 0:
       weights_sum = 1
 
+    for_deb = self.tweets_to_dict()
+
     # sum similarities
     self._tweets['total_sim'] = (
-        (self._tweets.text_sim) +
+        (self._tweets.text_sim) * 0 +
         (self._tweets.text_len_sim * int(params_weights["lengthWeight"])) + 
         (self._tweets.fav_sim * int(params_weights["likesWeight"])) + 
         (self._tweets.ret_sim * int(params_weights["retweetsWeight"])) + 
@@ -148,7 +150,7 @@ class Tweets:
 
   def sort_tweets(self):    
     # sort tweets
-    self._tweets = self._tweets.sort_values(by=["total_sim"], ascending=True)
+    self._tweets = self._tweets.sort_values(by=["total_sim"], ascending=False)
 
   def tweets_to_json(self):
     return self._tweets.to_json(orient="records")
