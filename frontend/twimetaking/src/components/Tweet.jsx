@@ -16,7 +16,7 @@ const styles = (theme) => ({
     width: '100%',
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
-    paddingLeft: theme.spacing(1),
+    paddingLeft: theme.spacing(0),
     paddingRight: theme.spacing(1),
   },
   likeIcon: {
@@ -41,6 +41,9 @@ const styles = (theme) => ({
     fontWeight: 'bold',
   },
   screenName: {
+    fontSize: '11pt',
+  },
+  tweetInfo: {
     fontSize: '11pt',
   },
 });
@@ -82,6 +85,12 @@ const Tweet = (props) => {
     return `${padHour}:${padMinutes} ${ampm} · ${month} ${padDay}, ${year}`;
   };
 
+  const extractHtmlContent = (htmlStr) => {
+    const span = document.createElement('span');
+    span.innerHTML = htmlStr;
+    return span.textContent || span.innerText;
+  };
+
   return (
     <Grid
       container
@@ -92,7 +101,7 @@ const Tweet = (props) => {
     >
       <Grid item xs={12}>
         <Grid container alignItems="stretch">
-          <Grid item xs={2}>
+          <Grid item sm={2} xs={3}>
             <Grid
               container
               alignItems="flex-start"
@@ -107,9 +116,9 @@ const Tweet = (props) => {
               </a>
             </Grid>
           </Grid>
-          <Grid item xs={10}>
+          <Grid item sm={10} xs={9}>
             <Grid container spacing={1}>
-              <Grid item xs={6}>
+              <Grid item xs={12}>
                 <span className={classes.userName}>{`${data.user_name} `}</span>
                 <span className={classes.screenName}>{`@${data.user_screen_name}`}</span>
               </Grid>
@@ -118,11 +127,7 @@ const Tweet = (props) => {
               </Grid>
               <Grid item xs={12}>
                 <Grid container>
-                  <span>{`${readTweetDate(data.created_at)} · `}</span>
-                  <span
-                    dangerouslySetInnerHTML={{ __html: data.source }}
-                    className={classes.dataSource}
-                  />
+                  <span className={classes.tweetInfo}>{`${readTweetDate(data.created_at)} · ${extractHtmlContent(data.source)}`}</span>
                 </Grid>
               </Grid>
               <Grid item xs={12}>
